@@ -1,0 +1,20 @@
+struct vertexOutput {
+  float4 position : POSITION;
+  float3 color    : COLOR;
+  float2 texCoord : TEXCOORD0;
+};
+
+vertexOutput vertexEntry(float2 position : POSITION,
+                           float3 color    : COLOR,
+                           float2 texCoord : TEXCOORD0)
+{
+  vertexOutput OUT;
+
+  OUT.position = float4(position[0] * 3, position[1] / 2, 0, 1);
+  //OUT.position = float4(position,0,1);
+  OUT.color    = color;
+  OUT.texCoord = texCoord;
+
+  return OUT;	
+}
+

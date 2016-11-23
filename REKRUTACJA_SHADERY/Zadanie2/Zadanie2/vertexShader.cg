@@ -1,0 +1,31 @@
+void vertexEntry(float2 position : POSITION,
+                 float2 texCoord : TEXCOORD0,
+
+                 out float4 oPosition     : POSITION,
+                 out float2 leftTexCoord  : TEXCOORD0,
+                 out float2 rightTexCoord : TEXCOORD1,
+
+                 uniform float2 leftSeparation,
+                 uniform float2 rightSeparation,
+				 uniform float twisting)
+{
+  // Euclidean length of vector
+  float angle = twisting * length(position);
+  float cosLength, sinLength;
+  
+  // sin and cos functions for given angle
+  sincos(angle, sinLength, cosLength);
+
+  // Twisting positions of vetrices
+  oPosition[0] = cosLength * position[0] +
+                   -sinLength * position[1];
+  oPosition[1] = sinLength * position[0] +
+                    cosLength * position[1];
+  oPosition[2] = 0;
+  oPosition[3] = 1;
+
+  // Separating textures
+  leftTexCoord  = texCoord + leftSeparation;
+  rightTexCoord = texCoord + rightSeparation;
+}
+

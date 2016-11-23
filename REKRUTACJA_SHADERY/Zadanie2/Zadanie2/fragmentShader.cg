@@ -1,0 +1,15 @@
+void fragmentEntry(float2 leftTexCoord  : TEXCOORD0,
+							 float2 rightTexCoord : TEXCOORD1,
+
+							 out float4 color : COLOR,
+
+							 uniform sampler2D decal)
+{
+  // Getting colors from texture using separated texture coordinates
+  float4 leftColor  = tex2D(decal, leftTexCoord);
+  float4 rightColor = tex2D(decal, rightTexCoord);
+
+  // Linear interpolation of vectors
+  color = lerp(leftColor, rightColor, 0.5);
+}
+

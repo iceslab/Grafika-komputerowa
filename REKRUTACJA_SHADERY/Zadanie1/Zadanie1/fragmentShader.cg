@@ -1,0 +1,16 @@
+struct fragmentOutput {
+  float4 color : COLOR;
+};
+
+fragmentOutput fragmentEntry(float2 texCoord : TEXCOORD0,
+                           uniform sampler2D decal : TEX0)
+{
+  const float cornersDistance = distance(float2(0, 0), float2(1, 1));
+  float currentDistance = distance(texCoord, float2(0, 0));
+  
+  fragmentOutput OUT;
+  OUT.color = tex2D(decal, texCoord);
+  OUT.color[2] *= (currentDistance / cornersDistance);
+  return OUT;
+}
+
